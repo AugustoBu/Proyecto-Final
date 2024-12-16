@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Posts</title>
+</head>
+<body>
+    <h1>Posts</h1>
+    <ul>
+        {% for post in posts %}
+            <li>
+                <h2>{{ post.title }}</h2>
+                <p><strong>Subtítulo:</strong> {{ post.subtitle }}</p>
+                <p><strong>Autor:</strong> {{ post.author }}</p>
+                <p><strong>Publicado:</strong> {{ post.created_at|date:"d/m/Y H:i" }}</p>
+
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}" style="max-width:300px; max-height:200px;">
+                {% else %}
+                    <p><em>Este post no tiene una imagen asociada.</em></p>
+                {% endif %}
+            </li>
+            <hr>
+        {% empty %}
+            <p>No hay posts disponibles en este momento.</p>
+        {% endfor %}
+    </ul>
+</body>
+</html>
