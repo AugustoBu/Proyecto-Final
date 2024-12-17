@@ -35,6 +35,14 @@ def create_post(request):
         form = PostForm()
     return render(request, 'AppPrincipal/create_post.html', {'form': form})
 
+def post_list(request):
+    posts = Post.objects.all()
+    return render(request, 'AppPrincipal/post_list.html', {'posts': posts})
+
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    return render(request, 'AppPrincipal/post_detail.html', {'post': post})
+
 
 @login_required
 def edit_post(request, pk):

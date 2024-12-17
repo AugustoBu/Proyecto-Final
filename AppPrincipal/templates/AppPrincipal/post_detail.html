@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p><strong>Autor:</strong> {{ post.author }}</p>
+    <p><strong>Publicado:</strong> {{ post.created_at|date:"d/m/Y H:i" }}</p>
+    <p>{{ post.body }}</p>
+
+    <a href="{% url 'post_list' %}">Volver a la lista</a>
+    {% if user.is_authenticated and user == post.author %}
+        <a href="{% url 'edit_post' post.pk %}">Editar</a>
+        <a href="{% url 'delete_post' post.pk %}">Eliminar</a>
+    {% endif %}
+{% endblock %}

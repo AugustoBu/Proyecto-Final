@@ -1,17 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eliminar Post</title>
-</head>
-<body>
-    <h1>¿Estás seguro de que deseas eliminar este post?</h1>
-    <p>{{ post.title }}</p>
+{% extends 'base.html' %}
+
+{% block title %}Eliminar Post{% endblock %}
+
+{% block content %}
+    <h1>¿Estás seguro que deseas eliminar este post?</h1>
+    <p>Título: {{ post.title }}</p>
     <form method="POST">
         {% csrf_token %}
         <button type="submit">Eliminar</button>
     </form>
     <a href="{% url 'post_list' %}">Cancelar</a>
-</body>
-</html>
+{% endblock %}
