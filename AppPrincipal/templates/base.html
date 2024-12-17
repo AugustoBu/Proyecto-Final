@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mi Blog{% endblock %}</title>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <ul>
+            <li><a href="{% url 'post_list' %}">Inicio</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'create_post' %}">Crear Post</a></li>
+                <li><a href="{% url 'logout' %}">Cerrar Sesión</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
+                <li><a href="{% url 'signup' %}">Registrarse</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <!-- Mensajes -->
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <!-- Contenido principal -->
+    <div>
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Pie de página -->
+    <footer>
+        <p>© 2024 Mi Blog</p>
+    </footer>
+</body>
+</html>
