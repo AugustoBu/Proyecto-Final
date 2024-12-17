@@ -66,3 +66,6 @@ def delete_post(request, pk):
         messages.success(request, 'Post eliminado exitosamente.')
         return redirect('post_list')
     return render(request, 'AppPrincipal/delete_post.html', {'post': post})
+
+def about(request):
+    return render(request, 'AppPrincipal/about.html')

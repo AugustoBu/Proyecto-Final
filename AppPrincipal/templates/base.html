@@ -10,6 +10,7 @@
     <nav>
         <ul>
             <li><a href="{% url 'post_list' %}">Inicio</a></li>
+            <li><a href="{% url 'about' %}">Acerca de mí</a></li>
             {% if user.is_authenticated %}
                 <li><a href="{% url 'create_post' %}">Crear Post</a></li>
                 <li><a href="{% url 'logout' %}">Cerrar Sesión</a></li>
