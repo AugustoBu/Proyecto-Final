@@ -43,6 +43,10 @@ def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     return render(request, 'AppPrincipal/post_detail.html', {'post': post})
 
+def page_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    return render(request, 'AppPrincipal/page_detail.html', {'post': post})
+
 
 @login_required
 def edit_post(request, pk):

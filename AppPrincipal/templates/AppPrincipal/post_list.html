@@ -7,33 +7,36 @@
     <ul>
         {% for post in posts %}
             <li>
-                
+                <!-- Titulo -->
                 <h2>{{ post.title }}</h2>
+                
+                <!-- Subtitulo  -->
                 {% if post.subtitle %}
                     <p><strong>Subtítulo:</strong> {{ post.subtitle }}</p>
                 {% endif %}
                 
-                
+                <!-- Autor y fecha -->
                 <p><strong>Autor:</strong> {{ post.author }}</p>
                 <p><strong>Publicado:</strong> {{ post.created_at|date:"d/m/Y H:i" }}</p>
                 
-                
+                <!-- Resumen -->
                 <p><strong>Resumen:</strong> {{ post.short_body }}</p>
-                
                 
                 {% if post.is_recent %}
                     <span style="color: green; font-weight: bold;">¡Nuevo!</span>
                 {% endif %}
                 
-                
+                <!-- imagen -->
                 {% if post.image %}
                     <p>
                         <img src="{{ post.image.url }}" alt="Imagen del Post" style="width: 300px; height: auto; border: 1px solid #ccc; border-radius: 5px;">
                     </p>
                 {% endif %}
                 
-                
+                <!-- Enlaces: Leer mas, Ver Pagina, Editar y Eliminar -->
                 <a href="{% url 'post_detail' post.pk %}">Leer más</a>
+                <a href="{% url 'page_detail' post.pk %}" style="margin-left: 10px; color: purple;">Ver Página</a>
+                
                 {% if user.is_authenticated and user == post.author %}
                     <a href="{% url 'edit_post' post.pk %}" style="margin-left: 10px; color: blue;">Editar</a>
                     <a href="{% url 'delete_post' post.pk %}" style="margin-left: 10px; color: red;">Eliminar</a>
@@ -41,7 +44,6 @@
             </li>
             <hr>
         {% empty %}
-            
             <p>No hay posts disponibles en este momento.</p>
         {% endfor %}
     </ul>
