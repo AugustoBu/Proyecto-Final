@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages  
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import PostForm
+from .forms import PostForm, ProfileForm
 from .models import Post
-from django.contrib.auth.forms import UserCreationForm  
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm  
 
 def post_list(request):
     posts = Post.objects.all()
@@ -81,3 +81,23 @@ def delete_post(request, pk):
 
 def about(request):
     return render(request, 'AppPrincipal/about.html')
+
+# Profile 
+
+@login_required
+def view_profile(request):
+    return render(request, 'AppPrincipal/profile.html', {'user': request.user})
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        user_form = UserChangeForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return redirect('view_profile')
+    else:
+        user_form = UserChangeForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+    return render(request, 'AppPrincipal/edit_profile.html', {'user_form': user_form, 'profile_form': profile_form})
