@@ -61,12 +61,13 @@ class Post(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='profiles/', default='profiles/default.png', blank=True, null=True)
-    bio = models.TextField(blank=True, null=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    first_name = models.CharField(max_length=50, blank=True)
+    last_name = models.CharField(max_length=50, blank=True)
+    email = models.EmailField(blank=True)
+    image = models.ImageField(upload_to='profiles/', blank=True, null=True)
 
     def __str__(self):
-        return f"Perfil de {self.user.username}"
+        return self.user.username
     
 # creacion automatica creando perfil
 @receiver(post_save, sender=User)

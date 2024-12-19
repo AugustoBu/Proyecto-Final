@@ -35,13 +35,11 @@ def create_post(request):
         form = PostForm()
     return render(request, 'AppPrincipal/create_post.html', {'form': form})
 
-def post_list(request):
-    posts = Post.objects.all()
-    return render(request, 'AppPrincipal/post_list.html', {'posts': posts})
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     return render(request, 'AppPrincipal/post_detail.html', {'post': post})
+
 
 def page_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -79,14 +77,15 @@ def delete_post(request, pk):
         return redirect('post_list')
     return render(request, 'AppPrincipal/delete_post.html', {'post': post})
 
+
 def about(request):
     return render(request, 'AppPrincipal/about.html')
 
-# Profile 
 
 @login_required
 def view_profile(request):
-    return render(request, 'AppPrincipal/profile.html', {'user': request.user})
+    return render(request, 'AppPrincipal/profile.html', {'user': request.user, 'profile': request.user.profile})
+
 
 @login_required
 def edit_profile(request):
