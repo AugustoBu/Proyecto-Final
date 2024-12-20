@@ -4,11 +4,17 @@
 
 {% block content %}
     <h1>Editar Perfil</h1>
-    <form method="POST" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ user_form.as_p }}
-        {{ profile_form.as_p }}
-        <button type="submit">Guardar Cambios</button>
+        <fieldset>
+            <legend>Información de Usuario</legend>
+            {{ user_form.as_p }}
+        </fieldset>
+        <fieldset>
+            <legend>Perfil</legend>
+            {{ profile_form.as_p }}
+        </fieldset>
+        <button type="submit" class="btn btn-success">Guardar Cambios</button>
     </form>
-    <a href="{% url 'view_profile' %}">Volver al Perfil</a>
+    <a href="{% url 'view_profile' %}" class="btn btn-secondary">Volver</a>
 {% endblock %}
