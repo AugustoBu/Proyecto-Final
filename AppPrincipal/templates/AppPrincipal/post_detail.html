@@ -8,9 +8,15 @@
     <p><strong>Publicado:</strong> {{ post.created_at|date:"d/m/Y H:i" }}</p>
     <p>{{ post.body }}</p>
 
+    {% if post.image %}
+        <p>
+            <img src="{{ post.image.url }}" alt="Imagen del Post" style="width: 600px; height: auto; border: 1px solid #ccc; border-radius: 5px;">
+        </p>
+    {% endif %}
+
     <a href="{% url 'post_list' %}">Volver a la lista</a>
     {% if user.is_authenticated and user == post.author %}
-        <a href="{% url 'edit_post' post.pk %}">Editar</a>
-        <a href="{% url 'delete_post' post.pk %}">Eliminar</a>
+        <a href="{% url 'edit_post' post.pk %}" style="margin-left: 10px; color: blue;">Editar</a>
+        <a href="{% url 'delete_post' post.pk %}" style="margin-left: 10px; color: red;">Eliminar</a>
     {% endif %}
 {% endblock %}
