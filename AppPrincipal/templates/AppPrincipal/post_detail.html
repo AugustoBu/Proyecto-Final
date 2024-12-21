@@ -14,9 +14,11 @@
         </p>
     {% endif %}
 
-    <a href="{% url 'post_list' %}">Volver a la lista</a>
-    {% if user.is_authenticated and user == post.author %}
-        <a href="{% url 'edit_post' post.pk %}" style="margin-left: 10px; color: blue;">Editar</a>
-        <a href="{% url 'delete_post' post.pk %}" style="margin-left: 10px; color: red;">Eliminar</a>
-    {% endif %}
+    <div>
+        <a href="{% url 'post_list' %}" style="margin-right: 15px;">Volver a la lista</a>
+        {% if user.is_authenticated and user == post.author %}
+            <a href="{% url 'edit_post' post.pk %}" style="margin-right: 10px; color: blue;">Editar</a>
+            <a href="{% url 'delete_post' post.pk %}" style="color: red;">Eliminar</a>
+        {% endif %}
+    </div>
 {% endblock %}

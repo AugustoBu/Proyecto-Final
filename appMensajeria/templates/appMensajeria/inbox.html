@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Bandeja de Entrada{% endblock %}
+
+{% block content %}
+    <h1>Bandeja de Entrada</h1>
+    {% if messages_received %}
+        <ul>
+            {% for message in messages_received %}
+                <li>
+                    <strong>De:</strong> {{ message.sender.username }}<br>
+                    <strong>Fecha:</strong> {{ message.timestamp|date:"d/m/Y H:i" }}<br>
+                    <strong>Contenido:</strong> {{ message.content }}
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tienes mensajes en este momento.</p>
+    {% endif %}
+{% endblock %}

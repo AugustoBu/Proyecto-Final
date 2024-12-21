@@ -37,8 +37,12 @@ def create_post(request):
 
 
 def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    return render(request, 'AppPrincipal/post_detail.html', {'post': post})
+    try:
+        post = get_object_or_404(Post, pk=pk)
+        return render(request, 'AppPrincipal/post_detail.html', {'post': post})
+    except Post.DoesNotExist:
+        messages.error(request, 'El post solicitado no existe.')
+        return redirect('post_list')
 
 
 def page_detail(request, pk):
@@ -87,7 +91,8 @@ def view_profile(request):
     try:
         profile = request.user.profile
     except AttributeError:
-        profile = None  
+        profile = None
+        messages.warning(request, 'No tienes un perfil configurado. Por favor edita tu perfil.')
     return render(request, 'AppPrincipal/profile.html', {'user': request.user, 'profile': profile})
 
 @login_required
@@ -99,10 +104,20 @@ def edit_profile(request):
             if user_form.is_valid() and profile_form.is_valid():
                 user_form.save()
                 profile_form.save()
+                messages.success(request, 'Perfil actualizado exitosamente.')
                 return redirect('view_profile')
+            else:
+                messages.error(request, 'Hubo un error al actualizar el perfil. Por favor, verifica los datos.')
         else:
             user_form = UserChangeForm(instance=request.user)
             profile_form = ProfileForm(instance=request.user.profile)
     except AttributeError:
-        return redirect('profile_error')  
+        messages.error(request, 'Ocurrió un error al cargar el perfil. Asegúrate de estar autenticado.')
+        return redirect('profile_error')
     return render(request, 'AppPrincipal/edit_profile.html', {'user_form': user_form, 'profile_form': profile_form})
+
+#Bienvenida 
+
+def about(request):
+    messages.info(request, 'Bienvenido a la sección "Acerca de mí".')
+    return render(request, 'AppPrincipal/about.html')

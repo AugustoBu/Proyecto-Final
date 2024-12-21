@@ -24,11 +24,11 @@
 
     <!-- Mensajes -->
     {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="alert alert-{{ message.tags }}" style="color: green; font-weight: bold;">{{ message }}</li>
+        {% endfor %}
+    </ul>
     {% endif %}
 
     <!-- Contenido principal -->
