@@ -15,6 +15,8 @@
             <li><a href="{% url 'create_post' %}">Crear Post</a></li>
             <li><a href="{% url 'view_profile' %}">Mi Perfil</a></li>
             <li><a href="{% url 'logout' %}">Cerrar Sesión</a></li>
+            <li><a href="{% url 'inbox' %}">Bandeja de Entrada</a></li>
+            <li><a href="{% url 'send_message' %}">Enviar Mensaje</a></li>
         {% else %}
             <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
             <li><a href="{% url 'signup' %}">Registrarse</a></li>
